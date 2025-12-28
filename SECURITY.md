@@ -8,7 +8,7 @@ The following sections will tell you how to report a vulnerability on `fq`.
 
 | Version      | Supported          |
 |:-------------| ------------------:|
-| `\<LTS\>`    | :white_check_mark: |
+| `<LTS>`      | :white_check_mark: |
 | `dev`        | :x:                |
 | `release`    | :white_check_mark: |
 | `prerelease` | :x:                |
