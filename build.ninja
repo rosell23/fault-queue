@@ -1,0 +1,24 @@
+cc = c99
+ar = ar
+cflags = -Wall -O2 -fPIC
+arflags = rcs
+srcdir = src
+builddir = builddir
+libname = libfq.a
+
+rule cc
+    command = $cc $cflags -c $in -o $out
+    description = CC $in -> $out
+
+rule ar
+    command = $ar $arflags $out $in
+    description = AR -> $out
+
+objects = $builddir/queue.o
+
+build $builddir/queue.o: cc $srcdir/queue.c
+
+build $libname: ar $objects
+
+default $libname
+
