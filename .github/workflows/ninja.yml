@@ -1,0 +1,29 @@
+name: Ninja
+
+on:
+  release:
+  push:
+    branches:
+      - '*'
+
+  schedule:
+    - cron: '30 5,17 * * *'
+
+jobs:
+  setup:
+    name: Setup
+    uses: ashutoshvarma/setup-ninja@93f8b9763516f1fb9b4d9840b12d844bee17791f # v1.1
+    with:
+      version: 1.12.0
+      platform: linux
+
+  build:
+    runs-on: ubuntu-latest
+    name: Build the project
+    needs: [ setup ]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Build
+        run: ninja
