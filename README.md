@@ -81,5 +81,5 @@ Public domain, because
 [so called "intellectual property" is much of an oxymoron](https://harmful.cat-v.org/economics/intellectual_property/).
 
 If you prefer it, or your country's patent protection and copyright department is ran by
-retards that won't accept copyleft, you can use (CC0's fallback or) the ISC license instead.
+retards that won't accept PD, you can use (CC0's fallback or) the ISC license instead.
 
