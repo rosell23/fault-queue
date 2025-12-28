@@ -21,6 +21,9 @@
 		enum { MOREDUCKTAPE(static_assert_at, __LINE__) = 1 / ((what)? 1 : 0) }
 #endif
 
+/* NOTE: FQTYPE does abssolutely nothing, it's just for IDEs */
+#define FQTYPE(at, ft)	at
+
 #ifdef __cplusplus
 	}
 #endif

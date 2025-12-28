@@ -7,7 +7,7 @@ builddir = builddir
 libname = libfq.a
 
 rule cc
-    command = $cc $cflags -c $in -o $out
+    command = $cc $cflags -c $in -o $out -Iinclude/
     description = CC $in -> $out
 
 rule ar

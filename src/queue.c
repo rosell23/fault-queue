@@ -4,11 +4,13 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
+#include <fq/faults-builtin.h>
+#include <fq/fault.h>
 
 #define MAXFAULTS	16
 
 typedef struct queue {
-	size_t items[MAXFAULTS];
+	Fault* items[MAXFAULTS];
 	int8_t front, rear;
 } Queue;
 
@@ -29,7 +31,7 @@ isempty(Queue* q) {
 }
 
 void
-enqueue(Queue* q, uint8_t val) {
+enqueue(Queue* q, Fault* val) {
 	if (q->front == -1)
 		q->front = 0; /* start queue */
 
@@ -38,7 +40,7 @@ enqueue(Queue* q, uint8_t val) {
 		puts("fq [verbdebug] - enqueuing full list, wrapping...");
 #	endif
 		q->front = 0;
-		q->rear = MAXFAULTS;
+		q->rear = -1;
 	}
 
 	q->rear++;
@@ -48,11 +50,36 @@ enqueue(Queue* q, uint8_t val) {
 #	endif
 }
 
-void
+Fault*
 dequeue(Queue* q) {
 	if (isempty(q)) {
-		
+#	ifdef FQ_VERBDEBUG
+		printf("fq [verbdebug] - can't dequeue empty list\n");
+#	endif
+		enqueue(q, FQUEUE);
+		return FQUEUE;
 	}
+
+	Fault* value = q->items[q->front];
+	q->front++;
+	if (q->front > q->rear) { /* reset queue if it becomes void */
+		q->front = q->rear = -1;
+	}
+
+	return value;
+}
+
+Fault*
+firstf(Queue* q) {
+	if (isempty(q)) {
+#	ifdef FQ_VERBDEBUG
+		puts("fq [verbdebug] - can't get first fault from an empty fault-queue");
+#	endif
+		enqueue(q, FQUEUE);
+		return FQUEUE;
+	}
+
+	return q->items[q->front];
 }
 
 #endif /* _FQ_QUEUE_H_ */
