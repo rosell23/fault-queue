@@ -14,11 +14,14 @@ rule ar
     command = $ar $arflags $out $in
     description = AR -> $out
 
+rule dir
+    command = mkdir -p $out
+    description = MKDIR $out
+
 objects = $builddir/queue.o
 
-build $builddir/queue.o: cc $srcdir/queue.c
+build $builddir/queue.o: cc $srcdir/queue.c | $builddir/
+build $builddir/: dir
 
 build $libname: ar $objects
-
-default $libname
 

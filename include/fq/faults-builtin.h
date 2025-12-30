@@ -13,7 +13,10 @@ static Fault queue_fault = {.id = 0x01, .callback = NULL};
 Fault* const FQUEUE = &queue_fault;
 
 /* "highest" fault */
-const uint8_t lastqueue = 0x01;
+uint8_t lastqueue = 0x01;
+
+#define NEWFAULT(name) \
+	static Fault ##name = { .id = (++lastqueue), .callback = NULL };\
 
 #ifdef __cplusplus
 	}

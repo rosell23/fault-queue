@@ -1,6 +1,14 @@
 #ifndef _FQ_QUEUE_H_
 #define _FQ_QUEUE_H_	1
 
+/*
+ * queue.c --- basic queue implementation in C
+ * %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ *
+ * Header at include/fq/internal/queue.h
+ * -------------------------------------
+ */
+
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
@@ -39,8 +47,8 @@ enqueue(Queue* q, Fault* val) {
 #	ifdef	FQ_VERBDEBUG
 		puts("fq [verbdebug] - enqueuing full list, wrapping...");
 #	endif
-		q->front = 0;
-		q->rear = -1;
+		q->front = q->rear;
+		q->rear = q->front - 1; /* wrap */
 	}
 
 	q->rear++;
@@ -64,6 +72,11 @@ dequeue(Queue* q) {
 	q->front++;
 	if (q->front > q->rear) { /* reset queue if it becomes void */
 		q->front = q->rear = -1;
+	}
+
+	/* If there's a callback, call it back (duh!) */
+	if (q->items[q->front]->callback != NULL) {
+		q->items[q->front]->callback();
 	}
 
 	return value;
