@@ -1,7 +1,7 @@
 fault-queue - better error handling in C
 ========================================
 
-fault-queue (fq) is a C utility mini-library that improves error handling.
+> fault-queue (fq) is a C utility mini-library that improves error handling.
 
 Pretext
 -------
@@ -46,6 +46,8 @@ Here's an example of a simple function that fetches a server's IP from its URL:
 
 #include <fq.h>
 
+NEWFAULT(FNOHOST);
+
 static
 FQTYPE(const char*, FNOHOST)
 getip(const char* host) {
@@ -59,7 +61,7 @@ getip(const char* host) {
 
 int
 main(int argc, char* argv[]) {
-	HANDLE(getip(), _FALL, {
+	LCONNECT(FNOHOST, {
 		herror("get host");
 		return (EXIT_FAILURE); });
 
@@ -68,6 +70,12 @@ main(int argc, char* argv[]) {
 ~~~
 
 (Albeit, this example isn't the best, since `getip()` returns an string, but it is enough for demonstration.)
+
+Known Issues/Limitations
+------------------------
+
+* Can't connect to multiple faults in a single line.
+* The entire library is **_very_ thread-unsafe**
 
 Reference
 ---------
