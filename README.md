@@ -54,7 +54,7 @@ getip(const char* host) {
 	struct hostent* lh = gethostbyname(host);
 
 	if (!lh)
-		FQTHROW(FNOHOST);
+		RAISE(FNOHOST);
 
 	return (lh->h_name);
 }
