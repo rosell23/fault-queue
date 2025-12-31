@@ -1,7 +1,9 @@
 fault-queue - better error handling in C
 ========================================
 
-> fault-queue (fq) is a C utility mini-library that improves error handling.
+> happy new year! -- mario
+
+fault-queue (fq) is a C utility mini-library that improves error handling.
 
 Pretext
 -------
@@ -17,7 +19,7 @@ Features
 
 fq is intentionally _very_ minimalistic:
 
-* `errno` integration
+* ~~`errno` integration~~ (*TODO*)
 * simple, enjoyable API
 * some utilities.
 * readable
@@ -32,7 +34,7 @@ $ ninja
 < a bunch of stuff >
 ~~~
 
-It should generate `fq.a` (a static library).
+It should generate `fq.a` (a static library, since dynamic libraries are harmful).
 
 Examples
 --------
@@ -86,7 +88,7 @@ Licensing
 ---------
 
 Public domain, because
-[so called "intellectual property" is much of an oxymoron](https://harmful.cat-v.org/economics/intellectual_property/).
+[so called "intellectual property" is an oxymoron](https://harmful.cat-v.org/economics/intellectual_property/).
 
 If you prefer it, or your country's patent protection and copyright department is ran by
 braindead retards that won't accept PD, you can use (CC0's fallback or) the ISC license instead.
